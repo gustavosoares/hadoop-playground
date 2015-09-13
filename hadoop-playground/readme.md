@@ -21,3 +21,7 @@ hadoop fs -rm -r -f /tutorial/output
 hadoop jar hadoop-playground.jar com.hadoop.playground.WordCount /tutorial/input /tutorial/output
 
 
+### read or get the output
+
+hadoop fs -cat /tutorial/output/part*
+hadoop fs -get /tutorial/output/part* .
