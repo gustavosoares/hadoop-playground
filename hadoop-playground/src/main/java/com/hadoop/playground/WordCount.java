@@ -16,13 +16,19 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class WordCount {
     public static class WordCountMap extends Mapper<Object, Text, Text, IntWritable> {
+
+        List<String> commonWords = Arrays.asList("the", "a", "an", "and",
+                "of", "to", "in", "am", "is", "are", "at", "not");
+
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
-            StringTokenizer tokenizer = new StringTokenizer(line);
+            StringTokenizer tokenizer = new StringTokenizer(line, " \t,;.?!-:@[](){}_*/");
             while (tokenizer.hasMoreTokens()) {
                 String nextToken = tokenizer.nextToken();
-                context.write(new Text(nextToken), new IntWritable(1));
+                if (!commonWords.contains(nextToken.trim().toLowerCase())){
+                    context.write(new Text(nextToken), new IntWritable(1));
+                }
             }
         }
     }
