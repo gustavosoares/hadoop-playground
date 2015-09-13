@@ -129,7 +129,7 @@ public class TopWords {
         FileInputFormat.setInputPaths(jobA, new Path(args[0]));
         FileOutputFormat.setOutputPath(jobA, tmpPath);
 
-        jobA.setJarByClass(TopWords.class);
+        jobA.setJarByClass(com.hadoop.playground.WordCount.class);
         jobA.waitForCompletion(true);
 
         Job jobB = Job.getInstance(conf, "Top Words");
