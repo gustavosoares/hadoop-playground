@@ -59,7 +59,7 @@ public class OrphanPages extends Configured implements Tool {
                 String page_to = tokenizer.nextToken();
                 context.write(new IntWritable(Integer.valueOf(page_to)), new IntWritable(1));
             }
-            context.write(new IntWritable(Integer.valueOf(page)), new IntWritable(1));
+            context.write(new IntWritable(Integer.valueOf(page)), new IntWritable(0));
         }
     }
 
@@ -71,7 +71,7 @@ public class OrphanPages extends Configured implements Tool {
             for (IntWritable val : values) {
                 sum += val.get();
             }
-            if (sum == 1) context.write(key, null);
+            if (sum == 0) context.write(key, null);
         }
     }
 }
